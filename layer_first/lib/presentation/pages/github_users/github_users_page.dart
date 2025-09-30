@@ -44,15 +44,10 @@ class GithubUsersPage extends HookConsumerWidget {
       ),
       body: githubUsers.when(
         data: (items) {
-          // Github API は per_page=20 で取得しているため、総件数を持たないが
-          // 長さが 20 の倍数であれば更に続きを期待できる可能性が高い。
           return PullToRefresh(
             controller: scrollController,
-            pageSize: 20,
-            itemCount: items.length,
             onRefresh: () async {
               ref.invalidate(githubUsersControllerProvider);
-              // 再取得完了まで待機してインジケータを閉じる
               await ref.read(githubUsersControllerProvider.future);
             },
             onLoadMore: () async {

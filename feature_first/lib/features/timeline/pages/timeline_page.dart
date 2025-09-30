@@ -84,8 +84,6 @@ class TimelinePage extends HookConsumerWidget {
         data: (items) {
           return PullToRefresh(
             controller: scrollController,
-            pageSize: FetchTimeline.defaultLimit,
-            itemCount: items.length,
             onRefresh: () async {
               ref
                 ..invalidate(fetchTimelineProvider)

@@ -49,8 +49,6 @@ class GithubUsersPage extends HookConsumerWidget {
         data: (items) {
           return PullToRefresh(
             controller: scrollController,
-            pageSize: 20,
-            itemCount: items.length,
             onRefresh: () async {
               ref.invalidate(githubUsersControllerProvider);
             },

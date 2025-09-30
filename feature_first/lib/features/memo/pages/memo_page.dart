@@ -54,8 +54,6 @@ class MemoPage extends HookConsumerWidget {
         data: (items) {
           return PullToRefresh(
             controller: scrollController,
-            pageSize: MemoController.defaultLimit,
-            itemCount: items.length,
             onRefresh: () async {
               ref.invalidate(memoControllerProvider);
             },

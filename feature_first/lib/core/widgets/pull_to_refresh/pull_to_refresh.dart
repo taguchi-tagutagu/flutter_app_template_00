@@ -7,8 +7,6 @@ class PullToRefresh extends HookWidget {
     required this.slivers,
     this.onRefresh,
     this.onLoadMore,
-    this.pageSize,
-    this.itemCount,
     this.enableRefresh = true,
     this.enablePagination = true,
     this.controller,
@@ -26,14 +24,6 @@ class PullToRefresh extends HookWidget {
 
   /// 末尾到達時に呼び出す処理
   final Future<void> Function()? onLoadMore;
-
-  /// ページサイズ（hasMore 判定に使用）。
-  /// `enablePagination` が true の場合は、`itemCount` とセットでの指定を推奨。
-  final int? pageSize;
-
-  /// 現在のアイテム総数（hasMore 判定に使用）。
-  /// `enablePagination` が true の場合は、`pageSize` とセットでの指定を推奨。
-  final int? itemCount;
 
   /// Pull-To-Refresh を有効にするか
   final bool enableRefresh;
@@ -93,20 +83,14 @@ class PullToRefresh extends HookWidget {
       if (onLoadMore == null) {
         return;
       }
-      if (pageSize == null || itemCount == null) {
-        return;
-      }
-      final hasMore = itemCount! > 0 && (itemCount! % pageSize! == 0);
-      if (!hasMore) {
-        return;
-      }
       if (isLoadingMore.value) {
         return;
       }
       isLoadingMore.value = true;
       try {
-        await Future<void>.delayed(const Duration(milliseconds: 500));
+        await Future<void>.delayed(const Duration(milliseconds: 700));
         await onLoadMore?.call();
+        await Future<void>.delayed(const Duration(milliseconds: 300));
       } finally {
         if (context.mounted) {
           isLoadingMore.value = false;
