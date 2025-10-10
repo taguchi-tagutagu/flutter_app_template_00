@@ -26,7 +26,7 @@ class HomePage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final scrollController = useScrollController();
     final enableScreenReader =
-        ref.watch(fetchEnableScreenReaderProvider).asData?.value ?? false;
+        ref.watch(fetchEnableScreenReaderProvider).value ?? false;
     final tabTapOperation = ref.watch(tabTapOperationProviders(pageName));
     ref.listen(fetchEnableScreenReaderProvider, (previous, next) {
       if (!next.isLoading && next.hasError) {
@@ -93,8 +93,9 @@ class HomePage extends HookConsumerWidget {
                     }
                     return '-';
                   }()}: ${enableScreenReader ? 'ON' : 'OFF'}',
-                  style:
-                      context.bodyStyle.copyWith(fontWeight: FontWeight.bold),
+                  style: context.bodyStyle.copyWith(
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
               Padding(
@@ -143,8 +144,9 @@ class HomePage extends HookConsumerWidget {
               ListTile(
                 title: Text(
                   'ローカルカウンターのサンプル',
-                  style:
-                      context.bodyStyle.copyWith(fontWeight: FontWeight.bold),
+                  style: context.bodyStyle.copyWith(
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
                 trailing: const Icon(
                   Icons.arrow_forward_ios_rounded,
@@ -158,8 +160,9 @@ class HomePage extends HookConsumerWidget {
               ListTile(
                 title: Text(
                   'Firestoreカウンターのサンプル',
-                  style:
-                      context.bodyStyle.copyWith(fontWeight: FontWeight.bold),
+                  style: context.bodyStyle.copyWith(
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
                 trailing: const Icon(
                   Icons.arrow_forward_ios_rounded,
@@ -173,8 +176,9 @@ class HomePage extends HookConsumerWidget {
               ListTile(
                 title: Text(
                   'メールアドレス認証のサンプル',
-                  style:
-                      context.bodyStyle.copyWith(fontWeight: FontWeight.bold),
+                  style: context.bodyStyle.copyWith(
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
                 trailing: const Icon(
                   Icons.arrow_forward_ios_rounded,
@@ -188,8 +192,9 @@ class HomePage extends HookConsumerWidget {
               ListTile(
                 title: Text(
                   'タイムラインのサンプル',
-                  style:
-                      context.bodyStyle.copyWith(fontWeight: FontWeight.bold),
+                  style: context.bodyStyle.copyWith(
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
                 trailing: const Icon(
                   Icons.arrow_forward_ios_rounded,
@@ -203,8 +208,9 @@ class HomePage extends HookConsumerWidget {
               ListTile(
                 title: Text(
                   'Firestore Aggregationのサンプル',
-                  style:
-                      context.bodyStyle.copyWith(fontWeight: FontWeight.bold),
+                  style: context.bodyStyle.copyWith(
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
                 trailing: const Icon(
                   Icons.arrow_forward_ios_rounded,

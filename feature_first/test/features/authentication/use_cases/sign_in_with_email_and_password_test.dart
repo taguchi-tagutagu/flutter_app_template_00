@@ -8,8 +8,8 @@ import 'package:flutter_app_template/features/authentication/use_cases/sign_in_w
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import '../../../utils.dart';
 import 'sign_in_with_email_and_password_test.mocks.dart';
 
 /// Unit tests
@@ -54,7 +54,7 @@ void main() {
         });
 
         /// ProviderにMockをセットする
-        final container = createContainer(
+        final container = ProviderContainer.test(
           overrides: [
             firebaseAuthRepositoryProvider.overrideWithValue(
               mockFirebaseAuthRepository,
@@ -109,7 +109,7 @@ void main() {
       );
 
       /// ProviderにMockをセットする
-      final container = createContainer(
+      final container = ProviderContainer.test(
         overrides: [
           firebaseAuthRepositoryProvider.overrideWithValue(
             mockFirebaseAuthRepository,

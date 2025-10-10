@@ -9,8 +9,8 @@ import 'package:flutter_app_template/features/github_users/repositories/github_a
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import '../../../utils.dart';
 import 'github_api_repository_test.mocks.dart';
 
 /// Unit tests
@@ -51,7 +51,7 @@ void main() {
         );
 
         /// ProviderにMockをセットする
-        final container = createContainer(
+        final container = ProviderContainer.test(
           overrides: [
             githubApiClientProvider.overrideWithValue(
               GithubApiClient(mockDio, baseUrl: baseUrl),
@@ -66,8 +66,9 @@ void main() {
 
         /// テスト結果を検証
         expect(result.length, 2); // 実施結果と期待値が一致していること
-        verify(mockDio.fetch<Map<String, dynamic>>(any))
-            .called(1); // 注入したMockの関数が1回呼ばれていること
+        verify(
+          mockDio.fetch<Map<String, dynamic>>(any),
+        ).called(1); // 注入したMockの関数が1回呼ばれていること
       },
     );
   });
@@ -104,7 +105,7 @@ void main() {
         );
 
         /// ProviderにMockをセットする
-        final container = createContainer(
+        final container = ProviderContainer.test(
           overrides: [
             githubApiClientProvider.overrideWithValue(
               GithubApiClient(mockDio, baseUrl: baseUrl),
@@ -121,8 +122,9 @@ void main() {
         } on AppException catch (e) {
           /// テスト結果を検証
           expect(e.title, 'error'); // エラーメッセージが期待値であること
-          verify(mockDio.fetch<Map<String, dynamic>>(any))
-              .called(1); // 注入したMockの関数が1回呼ばれていること
+          verify(
+            mockDio.fetch<Map<String, dynamic>>(any),
+          ).called(1); // 注入したMockの関数が1回呼ばれていること
         } on Exception catch (_) {
           fail('failed');
         }

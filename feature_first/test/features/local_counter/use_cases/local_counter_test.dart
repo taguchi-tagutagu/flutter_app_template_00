@@ -5,8 +5,8 @@ import 'package:flutter_app_template/features/counter/use_cases/local_counter.da
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import '../../../utils.dart';
 import 'local_counter_test.mocks.dart';
 
 /// Unit tests
@@ -38,8 +38,9 @@ void main() {
       () async {
         /// Mockにデータをセットする
         when(
-          mockSharedPreferencesRepository
-              .fetch<int>(SharedPreferencesKey.localCounter),
+          mockSharedPreferencesRepository.fetch<int>(
+            SharedPreferencesKey.localCounter,
+          ),
         ).thenAnswer((_) => 0);
         when(
           mockSharedPreferencesRepository.save(
@@ -49,7 +50,7 @@ void main() {
         ).thenAnswer((_) async => true);
 
         /// MockをProviderにセットし、テスト実施
-        final container = createContainer(
+        final container = ProviderContainer.test(
           overrides: [
             sharedPreferencesRepositoryProvider.overrideWithValue(
               mockSharedPreferencesRepository,

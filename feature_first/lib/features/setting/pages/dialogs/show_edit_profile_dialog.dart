@@ -35,7 +35,7 @@ class _Dialog extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final profileAsyncValue = ref.watch(fetchMyProfileProvider);
-    final profile = profileAsyncValue.asData?.value;
+    final profile = profileAsyncValue.value;
     final birthdateState = useState<DateTime?>(profile?.birthdate);
 
     useEffect(() {
@@ -145,11 +145,9 @@ class _Dialog extends HookConsumerWidget {
               ),
               key: nameFormKey,
               initialValue: profile?.name,
-              validator:
-                  (value) =>
-                      (value == null || value.trim().isEmpty)
-                          ? '名前を入力してください'
-                          : null,
+              validator: (value) => (value == null || value.trim().isEmpty)
+                  ? '名前を入力してください'
+                  : null,
               maxLength: 32,
             ),
             const SizedBox(height: 24),

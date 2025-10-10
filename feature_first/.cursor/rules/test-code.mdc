@@ -3,6 +3,7 @@ description: Flutter Feature First Architecture Test Rules
 globs: *.dart, *.yaml
 alwaysApply: false
 ---
+
 # Flutter Feature First Architecture Test Rules
 
 ## Directory Structure
@@ -37,7 +38,6 @@ test/
 
 - Unit test business logic
 - Test Riverpod providers
-- Use the `createContainer()` utility to create test ProviderContainers
 
 ### 4. UI Tests
 

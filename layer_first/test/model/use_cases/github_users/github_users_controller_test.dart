@@ -15,7 +15,7 @@ void main() {
 
   setUp(() {
     mockRepository = MockGithubApiRepository();
-    container = ProviderContainer(
+    container = ProviderContainer.test(
       overrides: [
         githubApiRepositoryProvider.overrideWithValue(mockRepository),
       ],
@@ -110,7 +110,8 @@ void main() {
 
       final controller = container.read(githubUsersControllerProvider.notifier);
 
-      expect(controller.future, throwsA(isA<Exception>()));
+      // https://riverpod.dev/ja/docs/whats_new#when-reading-a-provider-results-in-an-exception-the-error-is-now-wrapped-in-a-providerexception
+      expect(controller.future, throwsA(isA<StateError>()));
       verify(mockRepository.fetchUsers(since: 0, perPage: 20)).called(1);
     });
   });

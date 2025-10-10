@@ -41,10 +41,10 @@ class FirestoreAggregationPage extends HookConsumerWidget {
     final sumAsyncValue = ref.watch(fetchSumProvider);
     final averageAsyncValue = ref.watch(fetchAverageProvider);
 
-    final items = itemsAsyncValue.asData?.value ?? [];
-    final count = countAsyncValue.asData?.value ?? 0;
-    final sum = sumAsyncValue.asData?.value ?? 0;
-    final average = averageAsyncValue.asData?.value ?? 0;
+    final items = itemsAsyncValue.value ?? [];
+    final count = countAsyncValue.value ?? 0;
+    final sum = sumAsyncValue.value ?? 0;
+    final average = averageAsyncValue.value ?? 0;
 
     ref.listen(errorProvider, (prev, next) {
       if (next != null && next is Exception) {

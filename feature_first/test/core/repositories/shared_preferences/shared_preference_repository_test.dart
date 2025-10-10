@@ -4,9 +4,9 @@ import 'package:flutter_app_template/core/utils/logger.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../../utils.dart';
 import 'shared_preference_repository_test.mocks.dart';
 
 /// Unit tests
@@ -53,7 +53,7 @@ void main() {
       ).thenAnswer((_) async => true);
 
       /// ProviderにMockをセットする
-      final container = createContainer(
+      final container = ProviderContainer.test(
         overrides: [
           sharedPreferencesRepositoryProvider.overrideWith(
             (ref) => SharedPreferencesRepository(mockSharedPreferences),
@@ -93,7 +93,7 @@ void main() {
       ).thenAnswer((_) => ['0', '1']);
 
       /// ProviderにMockをセットする
-      final container = createContainer(
+      final container = ProviderContainer.test(
         overrides: [
           sharedPreferencesRepositoryProvider.overrideWith(
             (ref) => SharedPreferencesRepository(mockSharedPreferences),

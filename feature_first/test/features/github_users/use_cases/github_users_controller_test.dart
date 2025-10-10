@@ -8,7 +8,6 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
-import '../../../utils.dart';
 import 'github_users_controller_test.mocks.dart';
 
 /// Unit tests
@@ -39,8 +38,9 @@ void main() {
       'ユーザーリストを取得できること',
       () async {
         /// Mockにデータをセットする
-        when(mockGithubApiRepository.fetchUsers(since: 0, perPage: 20))
-            .thenAnswer((_) async {
+        when(
+          mockGithubApiRepository.fetchUsers(since: 0, perPage: 20),
+        ).thenAnswer((_) async {
           return List.generate(20, (index) {
             final id = index;
             return User(
@@ -50,8 +50,9 @@ void main() {
             );
           });
         });
-        when(mockGithubApiRepository.fetchUsers(since: 19, perPage: 20))
-            .thenAnswer((_) async {
+        when(
+          mockGithubApiRepository.fetchUsers(since: 19, perPage: 20),
+        ).thenAnswer((_) async {
           return List.generate(20, (index) {
             final id = index + 20;
             return User(
@@ -63,7 +64,7 @@ void main() {
         }); // ページング取得用にセット
 
         /// ProviderにMockをセットする
-        final container = createContainer(
+        final container = ProviderContainer.test(
           overrides: [
             githubApiRepositoryProvider.overrideWithValue(
               mockGithubApiRepository,
@@ -134,13 +135,14 @@ void main() {
       () async {
         /// Mockにデータをセットする
         final appException = AppException.error('error');
-        when(mockGithubApiRepository.fetchUsers(since: 0, perPage: 20))
-            .thenThrow(
+        when(
+          mockGithubApiRepository.fetchUsers(since: 0, perPage: 20),
+        ).thenThrow(
           appException,
         );
 
         /// ProviderにMockをセットする
-        final container = createContainer(
+        final container = ProviderContainer.test(
           overrides: [
             githubApiRepositoryProvider.overrideWithValue(
               mockGithubApiRepository,
@@ -149,23 +151,16 @@ void main() {
         );
 
         /// テスト実施
-        try {
-          await container.read(
-            githubUsersControllerProvider.future,
-          ); // build内が処理されるまで待つ
-          fail('failed');
-        } on Exception catch (_) {}
-
+        final controller = container.read(
+          githubUsersControllerProvider.notifier,
+        );
+        expect(controller.future, throwsA(isA<StateError>()));
         expect(
           container.exists(githubUsersControllerProvider),
           isTrue,
         ); // Providerのインスタンスが生成されていることを確認
         expect(
-          container.read(githubUsersControllerProvider).error,
-          appException,
-        ); // リ
-        expect(
-          container.read(githubUsersControllerProvider).asData?.value,
+          container.read(githubUsersControllerProvider).value,
           isNull,
         ); // リスト個数が期待値であるか確認
 

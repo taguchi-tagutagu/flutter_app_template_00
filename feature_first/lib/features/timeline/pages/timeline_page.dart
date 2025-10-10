@@ -48,7 +48,7 @@ class TimelinePage extends HookConsumerWidget {
     final scrollController = useScrollController();
 
     final asyncValue = ref.watch(fetchTimelineProvider);
-    final count = ref.watch(fetchTimelinePostCountProvider).asData?.value ?? 0;
+    final count = ref.watch(fetchTimelinePostCountProvider).value ?? 0;
 
     ref.listen(fetchTimelinePostCountProvider, (prev, next) {
       if (!next.isLoading && next.hasError) {

@@ -67,16 +67,16 @@ class FirestoreCounterPage extends HookConsumerWidget {
             style: context.bodyStyle,
           ),
           Padding(
-            padding:
-                const EdgeInsets.symmetric(vertical: 8).copyWith(bottom: 32),
+            padding: const EdgeInsets.symmetric(
+              vertical: 8,
+            ).copyWith(bottom: 32),
             child: Row(
               children: [
                 Expanded(
                   child: Column(
                     children: [
                       Text(
-                        (counterAsyncValue.asData?.value?.count ?? 0)
-                            .toString(),
+                        (counterAsyncValue.value?.count ?? 0).toString(),
                         style: context.titleStyle,
                       ),
                       Text(
@@ -90,8 +90,7 @@ class FirestoreCounterPage extends HookConsumerWidget {
                   child: Column(
                     children: [
                       Text(
-                        (counterFromStream.asData?.value?.count ?? 0)
-                            .toString(),
+                        (counterFromStream.value?.count ?? 0).toString(),
                         style: context.titleStyle,
                       ),
                       Text(

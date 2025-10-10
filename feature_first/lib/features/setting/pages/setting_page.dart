@@ -39,7 +39,7 @@ class SettingPage extends HookConsumerWidget {
     final appVersion = ref.watch(fetchAppVersionProvider);
     final packageName = ref.watch(fetchPackageNameProvider);
     final profileAsyncValue = ref.watch(fetchMyProfileProvider);
-    final profile = profileAsyncValue.asData?.value;
+    final profile = profileAsyncValue.value;
 
     final tabTapOperation = ref.watch(tabTapOperationProviders(pageName));
 
